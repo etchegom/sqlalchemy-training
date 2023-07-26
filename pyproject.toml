@@ -1,0 +1,31 @@
+[tool.poetry]
+name = "sqlalchemy-training"
+version = "0.1.0"
+description = ""
+authors = ["Etchegoyen Matthieu <etchegom@gmail.com>"]
+readme = "README.md"
+packages = [{include = "sqlalchemy_training"}]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+SQLAlchemy = "^2.0.19"
+
+[tool.poetry.group.dev.dependencies]
+black = "^23.7.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.black]
+line-length = 100
+include = '\.pyi?$'
+exclude = '''
+/(
+    \.git
+  | \.venv
+  | build
+  | dist
+)/
+'''
+skip-magic-trailing-comma = "false"
