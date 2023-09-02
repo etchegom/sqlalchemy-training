@@ -4,20 +4,21 @@ from os import path as op
 from pprint import pprint
 from models import Base, Student
 from sqlalchemy.orm import Session
+from sqlalchemy import Column, Integer, String, Boolean, Table, MetaData
 
 engine = db.create_engine(f"sqlite:///{op.abspath(op.dirname(__file__))}/european_database.sqlite")
 conn = engine.connect()
 
-metadata = db.MetaData()
-Division = db.Table("divisions", metadata, autoload_with=engine)
+metadata = MetaData()
+Division = Table("divisions", metadata, autoload_with=engine)
 
-StudentTable = db.Table(
+StudentTable = Table(
     "Student",
     metadata,
-    db.Column("Id", db.Integer(), primary_key=True),
-    db.Column("Name", db.String(255), nullable=False),
-    db.Column("Major", db.String(255), default="Math"),
-    db.Column("Pass", db.Boolean(), default=True),
+    Column("Id", Integer(), primary_key=True),
+    Column("Name", String(255), nullable=False),
+    Column("Major", String(255), default="Math"),
+    Column("Pass", Boolean(), default=True),
 )
 
 
