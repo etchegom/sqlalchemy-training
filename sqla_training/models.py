@@ -39,11 +39,8 @@ class User(TimeStampedPkModel):
 
     phone_number: Mapped[str]
 
-    personal_info = StringEncryptedType(
-        String,
-        key=secret,
-        engine=AesEngine,
-        padding="pkcs5",
+    personal_info: Mapped[str] = mapped_column(
+        StringEncryptedType(String, key=secret, engine=AesEngine, padding="pkcs5")
     )
 
     def __repr__(self) -> str:
