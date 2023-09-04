@@ -1,6 +1,7 @@
 import logging
 from logging.config import fileConfig
 from os.path import abspath, basename, dirname, join, splitext
+from typing import Any
 
 from alembic import context
 from alembic.script import write_hooks
@@ -82,8 +83,8 @@ else:
     run_migrations_online()
 
 
-@write_hooks.register("max_migration")
-def max_migration(filename, options):
-    filepath = join(abspath(dirname(__file__)), "versions", "max_migration.txt")
+@write_hooks.register("max_revision")
+def max_revision(filename: str, options: dict[str, Any]) -> None:
+    filepath = join(abspath(dirname(__file__)), "versions", "max_revision.txt")
     with open(filepath, "w") as f:
         f.write(splitext(basename(filename))[0])

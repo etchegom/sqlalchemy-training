@@ -33,6 +33,8 @@ class User(TimeStampedPkModel):
         back_populates="user", cascade="all, delete-orphan"
     )
 
+    # phone_number: Mapped[str]
+
     def __repr__(self) -> str:
         return f"User(id={self.id!r}, name={self.firstname!r}, fullname={self.lastname!r})"
 
