@@ -1,7 +1,6 @@
-from sqlalchemy import create_engine, MetaData
-from models import User, Address
+from models import Address, User
+from sqlalchemy import MetaData, create_engine
 from sqlalchemy.orm import Session
-
 
 engine = create_engine("postgresql://postgres:postgres@localhost:5432/sqlatraining", echo=True)
 conn = engine.connect()

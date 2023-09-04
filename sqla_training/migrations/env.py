@@ -1,9 +1,12 @@
+import logging
 from logging.config import fileConfig
-
-from sqlalchemy import engine_from_config
-from sqlalchemy import pool
+from os.path import abspath, basename, dirname, join, splitext
 
 from alembic import context
+from alembic.script import write_hooks
+from sqlalchemy import engine_from_config, pool
+
+from sqla_training.models import Base
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
@@ -18,12 +21,15 @@ if config.config_file_name is not None:
 # for 'autogenerate' support
 # from myapp import mymodel
 # target_metadata = mymodel.Base.metadata
-target_metadata = None
+target_metadata = Base.metadata
 
 # other values from the config, defined by the needs of env.py,
 # can be acquired:
 # my_important_option = config.get_main_option("my_important_option")
 # ... etc.
+
+
+logger = logging.getLogger(__name__)
 
 
 def run_migrations_offline() -> None:
@@ -64,9 +70,7 @@ def run_migrations_online() -> None:
     )
 
     with connectable.connect() as connection:
-        context.configure(
-            connection=connection, target_metadata=target_metadata
-        )
+        context.configure(connection=connection, target_metadata=target_metadata)
 
         with context.begin_transaction():
             context.run_migrations()
@@ -76,3 +80,10 @@ if context.is_offline_mode():
     run_migrations_offline()
 else:
     run_migrations_online()
+
+
+@write_hooks.register("max_migration")
+def max_migration(filename, options):
+    filepath = join(abspath(dirname(__file__)), "versions", "max_migration.txt")
+    with open(filepath, "w") as f:
+        f.write(splitext(basename(filename))[0])

@@ -11,3 +11,6 @@ reset: confirm-erase
 
 pre-commit:
 	@pre-commit run --all-files
+
+first-revision:
+	@alembic revision --autogenerate -m "First revision"

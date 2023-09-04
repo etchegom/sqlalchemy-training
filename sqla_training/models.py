@@ -1,10 +1,9 @@
 from datetime import datetime
+from typing import List
 
 from sqlalchemy import DateTime, ForeignKey, String, func
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import relationship, mapped_column, Mapped
-
-from typing import List
+from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 Base = declarative_base()
 
@@ -43,7 +42,7 @@ class Address(TimeStampedPkModel):
 
     email_address: Mapped[str]
 
-    user_id: Mapped[int] = mapped_column(ForeignKey("user_account.id"))
+    user_id: Mapped[int] = mapped_column(ForeignKey("user.id"))
     user: Mapped["User"] = relationship(back_populates="addresses")
 
     def __repr__(self) -> str:
