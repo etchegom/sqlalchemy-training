@@ -9,6 +9,8 @@ from sqlalchemy_utils.types.encrypted.encrypted_type import AesEngine
 
 Base = declarative_base()
 
+secret = "you_shall_not_pass"
+
 
 class PkModel(Base):
     __abstract__ = True
@@ -39,7 +41,7 @@ class User(TimeStampedPkModel):
 
     personal_info = StringEncryptedType(
         String,
-        key="you_shall_not_pass",
+        key=secret,
         engine=AesEngine,
         padding="pkcs5",
     )
