@@ -9,6 +9,8 @@ packages = [{include = "sqlalchemy_training"}]
 [tool.poetry.dependencies]
 python = "^3.11"
 SQLAlchemy = "^2.0.19"
+alembic = "^1.12.0"
+psycopg2-binary = "^2.9.7"
 
 [tool.poetry.group.dev.dependencies]
 black = "^23.7.0"
