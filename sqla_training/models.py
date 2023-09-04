@@ -44,7 +44,7 @@ class User(TimeStampedPkModel):
     )
 
     def __repr__(self) -> str:
-        return f"User(id={self.id!r}, name={self.firstname!r}, fullname={self.lastname!r})"
+        return f"User(id={self.id!r}, firstname={self.firstname!r}, lastname={self.lastname!r})"
 
 
 class Address(TimeStampedPkModel):
