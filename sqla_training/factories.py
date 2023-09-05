@@ -1,6 +1,6 @@
 import factory
 
-from sqla_training.models import User
+from sqla_training.models import User, Vehicle
 
 
 class UserFactory(factory.alchemy.SQLAlchemyModelFactory):
@@ -27,3 +27,11 @@ class AddressFactory(factory.alchemy.SQLAlchemyModelFactory):
 
     email_address = factory.Faker("email")
     user = factory.SubFactory(UserFactory)
+
+
+class VehicleFactory(factory.alchemy.SQLAlchemyModelFactory):
+    class Meta:
+        model = Vehicle
+
+    user = factory.SubFactory(UserFactory)
+    model = factory.Faker("vehicle_make_model")
