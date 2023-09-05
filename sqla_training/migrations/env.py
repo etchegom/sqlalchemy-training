@@ -3,10 +3,10 @@ from logging.config import fileConfig
 from os.path import abspath, basename, dirname, join, splitext
 from typing import Any
 
-from alembic import context
-from alembic.script import write_hooks
 from sqlalchemy import engine_from_config, pool
 
+from alembic import context
+from alembic.script import write_hooks
 from sqla_training.models import Base
 
 # this is the Alembic Config object, which provides

@@ -9,8 +9,11 @@ reset: confirm-erase
 	@docker compose down -v
 	@docker compose up -d --build
 
+init-db:
+	@alembic upgrade head
+
+populate:
+	@python main.py populate
+
 pre-commit:
 	@pre-commit run --all-files
-
-first-revision:
-	@alembic revision --autogenerate -m "First revision"
