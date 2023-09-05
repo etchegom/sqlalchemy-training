@@ -4,7 +4,7 @@ version = "0.1.0"
 description = ""
 authors = ["Etchegoyen Matthieu <etchegom@gmail.com>"]
 readme = "README.md"
-packages = [{include = "sqlalchemy_training"}]
+packages = [{ include = "sqlalchemy_training" }]
 
 [tool.poetry.dependencies]
 python = "^3.11"
@@ -13,6 +13,7 @@ alembic = "^1.12.0"
 psycopg2-binary = "^2.9.7"
 sqlalchemy-utils = "^0.41.1"
 cryptography = "^41.0.3"
+factory-boy = "^3.3.0"
 
 [tool.poetry.group.dev.dependencies]
 black = "^23.7.0"
@@ -33,3 +34,16 @@ exclude = '''
 )/
 '''
 skip-magic-trailing-comma = "false"
+
+
+[tool.isort]
+default_section = "FIRSTPARTY"
+float_to_top = true
+force_grid_wrap = 0
+include_trailing_comma = true
+known_third_party = ["factory", "sqlalchemy", "sqlalchemy_utils"]
+line_length = 100
+multi_line_output = 3
+sections = ["FUTURE", "STDLIB", "THIRDPARTY", "FIRSTPARTY", "LOCALFOLDER"]
+skip_glob = [".venv"]
+use_parentheses = true
