@@ -1,7 +1,7 @@
-from datetime import datetime
+from datetime import date, datetime
 from typing import List
 
-from sqlalchemy import DateTime, ForeignKey, String, func
+from sqlalchemy import Date, DateTime, ForeignKey, String, func
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy_utils import StringEncryptedType
@@ -57,3 +57,17 @@ class Address(TimeStampedPkModel):
 
     def __repr__(self) -> str:
         return f"Address(id={self.id!r}, email_address={self.email_address!r})"
+
+
+class Vehicle(TimeStampedPkModel):
+    __tablename__ = "vehicle"
+
+    model: Mapped[str]
+    registration: Mapped[str] = mapped_column(String(10))
+    registration_date: Mapped[date] = mapped_column(Date)
+
+    user_id: Mapped[int] = mapped_column(ForeignKey("user.id"))
+    user: Mapped["User"] = relationship("User", back_populates="vehicles")
+
+    def __repr__(self) -> str:
+        return f"Vehicle(id={self.id!r}, name={self.model!r})"
