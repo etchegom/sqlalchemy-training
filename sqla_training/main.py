@@ -1,18 +1,30 @@
-from models import Address, User
-from sqlalchemy import MetaData, create_engine
+from models import User
+from sqlalchemy import create_engine
 from sqlalchemy.orm import Session
 
 engine = create_engine("postgresql://postgres:postgres@localhost:5432/sqlatraining", echo=True)
 conn = engine.connect()
-metadata = MetaData()
+# metadata = MetaData()
 
 
-if __name__ == "__main__":
-    metadata.create_all(engine)
-
+def create_user():
     with Session(engine) as session:
         anakin = User(
             firstname="Anakin",
             lastname="Shywalker",
-            addresses=[Address(email_address="anakin.skywalker@test.org")],
+            personal_info="I am a Jedi",
+            phone_number="123456789",
         )
+        session.add(anakin)
+        session.commit()
+
+
+def list_users():
+    with Session(engine) as session:
+        for user in session.query(User).all():
+            print(f"user {user} => {user.personal_info}")
+
+
+if __name__ == "__main__":
+    # create_user()
+    list_users()

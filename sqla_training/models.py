@@ -4,8 +4,12 @@ from typing import List
 from sqlalchemy import DateTime, ForeignKey, String, func
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import Mapped, mapped_column, relationship
+from sqlalchemy_utils import StringEncryptedType
+from sqlalchemy_utils.types.encrypted.encrypted_type import AesEngine
 
 Base = declarative_base()
+
+secret = "you_shall_not_pass"
 
 
 class PkModel(Base):
@@ -35,8 +39,12 @@ class User(TimeStampedPkModel):
 
     phone_number: Mapped[str]
 
+    personal_info: Mapped[str] = mapped_column(
+        StringEncryptedType(String, key=secret, engine=AesEngine, padding="pkcs5")
+    )
+
     def __repr__(self) -> str:
-        return f"User(id={self.id!r}, name={self.firstname!r}, fullname={self.lastname!r})"
+        return f"User(id={self.id!r}, firstname={self.firstname!r}, lastname={self.lastname!r})"
 
 
 class Address(TimeStampedPkModel):
